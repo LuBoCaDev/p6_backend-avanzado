@@ -4,20 +4,20 @@
 
   <% // contenido para usuarios NO logados %>
   <% if (!session.userId) { %>
-    <p>Para ver el contenido debe hacer <a href="/login">login</a></p>
+    <p><%= __('To watch content you must') %> <a href="/login"><%= __('login') %></a></p>
   <% } %>
 
   <% // contenido para usuarios logados %>
   <% if (session.userId) { %>
-    <h1>My Products</h1>
+    <h1><%= __('My Products') %></h1>
 
     <table class="table table-hover">
       <thead><tr>
-        <th>Name</th>
-        <th style="text-align: right">Price</th>
-        <th>Image</th>
-        <th>Tags</th>
-        <th>Actions</th>
+        <th><%= __('Name') %></th>
+        <th style="text-align: right"><%= __('Price') %></th>
+        <th><%= __('Image') %></th>
+        <th><%= __('Tags') %></th>
+        <th><%= __('Actions') %></th>
       </tr></thead>
       <tbody>
       <% products.forEach(product => { %>
@@ -25,7 +25,7 @@
           <td><%= product.name %></td>
           <td style="text-align: right"><%= product.price / 100 %>€</td>
           <td><img
-            src="<%= agent.avatar ? `/avatars/${agent.avatar}` : 'https://placehold.co/100' %>"
+            src="<%= product.avatar ? `/avatar/${product.avatar}` : 'https://placehold.co/100' %>"
             alt="avatar"
             width="100">
           </td>
@@ -40,21 +40,21 @@
       </tbody>
     </table>
     <p>
-      total <%= totalCount %> products.
+      <%= __('total') %> <%= totalCount %> <%= __('products.') %>
     </p>
     <p>
       <!-- prev page -->
       <% if (skipPrev >= 0) { %>
         <a href="?limit=<%= pageSize %>&skip=<%= skipPrev %>">prev</a>
       <% } else { %>
-        <span style="color: lightgray;">prev</span>
+        <span style="color: lightgray;"><%= __('prev') %></span>
       <% } %>
 
       <!-- next page -->
       <% if (skipNext < totalCount) { %>
         <a href="?limit=<%= pageSize %>&skip=<%= skipNext %>">next</a>
       <% } else { %>
-        <span style="color: lightgray;">next</span>
+        <span style="color: lightgray;"><%= __('next') %></span>
       <% } %>
     </p>
   <% } %>

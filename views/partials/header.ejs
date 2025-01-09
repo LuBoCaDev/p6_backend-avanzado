@@ -20,19 +20,31 @@
 
       <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
         <% if (session.userId) { %>
-          <li><a href="/products/new" class="nav-link px-2">New product</a></li>
+          <li><a href="/products/new" class="nav-link px-2"><%= __('New product') %></a></li>
         <% } %>
-        <li><a href="#" class="nav-link px-2">Pricing</a></li>
-        <li><a href="#" class="nav-link px-2">FAQs</a></li>
-        <li><a href="#" class="nav-link px-2">About</a></li>
+        <li><a href="#" class="nav-link px-2"><%= __('Pricing') %></a></li>
+        <li><a href="#" class="nav-link px-2"><%= __('FAQs') %></a></li>
+        <li><a href="#" class="nav-link px-2"><%= __('About') %></a></li>
       </ul>
+
+
+      <%# lang selector %>
+      <div class="lang-selector">
+        <% getLocales().forEach( lang => { %>
+          <a href="/change-locale/?locale=<%= lang %>">
+            <img src="/images/<%= lang %>.png" alt="<%= lang %>">
+          </a>
+        <% }) %>
+      </div>
+
+
 
       <div class="col-md-3 text-end">
         <% if (!session.userId) { %>
-          <a href="/login" class="btn btn-outline-primary me-2">Login</a>
+          <a href="/login" class="btn btn-outline-primary me-2"><%= __('Login') %></a>
         <% } else { %>
           <small><%= session.userName %></small>
-          <a href="/logout" class="btn btn-primary sign-up-btn">Logout</a>
+          <a href="/logout" class="btn btn-primary sign-up-btn"><%= __('Logout') %></a>
         <% } %>
       </div>
     </header>
