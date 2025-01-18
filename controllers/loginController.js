@@ -10,10 +10,8 @@ export async function postLogin(req, res, next) {
   try {
     const { email, password } = req.body;
 
-    // buscar el usuario en la base de datos
     const user = await User.findOne({ email });
 
-    // si no lo encuentro o la contraseña no coincide --> error
     if (!user || !(await user.comparePassword(password)) ) {
       res.locals.error = 'Invalid credentials';
       res.locals.email = email;
@@ -21,13 +19,9 @@ export async function postLogin(req, res, next) {
       return;
     }
 
-    // si existe y la contraseña coincide:
-
-    // - apuntar en la sesión del usuario, que está autenticado
     req.session.userId = user._id;
     req.session.userName = user.name;
 
-    // - ir a zona privada
     res.redirect(req.query.redirect ?? '/');
 
   } catch (err) {

@@ -24,5 +24,7 @@
 	"Motor": "Motor",
 	"Lifestyle": "Lifestyle",
 	"Mobile": "Mobile",
-	"Work": "Work"
+	"Work": "Work",
+	"API Documentation": "API Documentation",
+	"API Documentation with Swagger": "API Documentation with Swagger"
 }

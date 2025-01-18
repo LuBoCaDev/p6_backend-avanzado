@@ -10,14 +10,12 @@ export async function postNew(req, res, next) {
     const userId = req.session.userId
     const productData = req.body
 
-    // creamos una instancia de producto en memoria
     const product = new Product(productData)
     product.owner = userId
-    product.price = Math.trunc(product.price * 100) // store only 2 decimals
-    product.tags = product.tags?.filter(tag => !!tag) // filter blank tags
+    product.price = Math.trunc(product.price * 100)
+    product.tags = product.tags?.filter(tag => !!tag)
     product.avatar = req.file.filename
 
-    // la persistimos en la BD
     const savedProduct = await product.save()
 
     res.redirect('/');
@@ -31,16 +29,13 @@ export async function deleteOne(req, res, next) {
     const userId = req.session.userId
     const productId = req.params.productId
 
-    // validar que el producto que queremos borrar es propiedad del usuario!!!!
     const product = await Product.findOne({ _id: productId })
 
-    // verificar que existe
     if (!product) {
       console.warn(`WARNING - el usuario ${userId} intentó eliminar un producto inexistente (${productId})`)
       return next(createError(404, 'Not found'))
     }
 
-    // product.owner viene de la base de datos y es un ObjectId
     if (product.owner.toString() !== userId) {
       console.warn(`WARNING - el usuario ${userId} intentó eliminar un producto (${productId}) propiedad de otro usuario (${product.owner})`)
       return next(createError(401, 'No autorizado'))

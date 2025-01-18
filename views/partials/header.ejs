@@ -22,9 +22,12 @@
         <% if (session.userId) { %>
           <li><a href="/products/new" class="nav-link px-2"><%= __('New product') %></a></li>
         <% } %>
-        <li><a href="#" class="nav-link px-2"><%= __('Pricing') %></a></li>
-        <li><a href="#" class="nav-link px-2"><%= __('FAQs') %></a></li>
-        <li><a href="#" class="nav-link px-2"><%= __('About') %></a></li>
+        <% if (session.userId) { %>
+          <li><a href="/documentacion.html" target="_blank" class="nav-link px-2"><%= __('API Documentation') %></a></li>
+        <% } %>
+        <% if (session.userId) { %>
+          <li><a href="/api-doc" target="_blank" class="nav-link px-2"><%= __('API Documentation with Swagger') %></a></li>
+        <% } %>
       </ul>
 
 
